@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>Cinderwatch</title>
-<meta name="description" content="Cinderwatch: a self-playing 3D isometric tower defense in a single HTML file.">
+<title>余烬守望</title>
+<meta name="description" content="一款可自动游玩的等距视角 3D 塔防游戏。">
 <meta id="vp" name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#020308">
 <meta name="color-scheme" content="dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Cinderwatch">
+<meta name="apple-mobile-web-app-title" content="余烬守望">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23090b11'/%3E%3Cpath d='M7 2h2v2h1v2h1v2h1v3h-1v2H9v1H7v-1H5v-2H4V8h1V6h1V4h1z' fill='%23ff8a3c'/%3E%3Cpath d='M7 7h2v2h1v2H9v1H7v-1H6V9h1z' fill='%23ffe2a0'/%3E%3C/svg%3E">
 <style>
@@ -27,7 +27,7 @@ canvas{position:fixed;left:0;top:0;width:100%;height:100%;display:block;touch-ac
 <canvas id="gl"></canvas>
 <canvas id="hud"></canvas>
 <div id="safe"></div>
-<div id="load">Cinderwatch<br><small>Lighting the beacon</small></div>
+<div id="load">余烬守望<br><small>正在点燃烽火</small></div>
 <script>var THREE=(function(){/**
  * @license
  * Copyright 2010-2024 Three.js Authors
@@ -739,7 +739,7 @@ function renderFrame() {
 const COL0 = Object.assign({}, COL);
 const BIOMES = [
   {
-    key: 'ashen', name: 'Ashen Pass', col: {},
+    key: 'ashen', alias: 'Ashen Pass', name: '灰烬山口', col: {},
     strata: [0x8f8474, 0x3c3f4c, 0x66564a, 0x767a86, 0x70503f, 0x4c4f5c, 0x9a8e7c, 0x55483e],
     hemi: [0x6d83bd, 0x1c1f2a, 1.15], moon: [0xa9c0f6, 1.55], fill: [0x4a5f96, .3], moonPos: [14, 44, -34],
     clear: [.0035, .005, .011], mistAmb: [.05, .08, .14], mist: [-.3, .42, .75, .1], sky: [.012, .022, .045], lift: [.010, .016, .030], sat: .92, expo: 1, sprAmb: [.05, .065, .1],
@@ -751,7 +751,7 @@ const BIOMES = [
     trees: [['tree', 13, 2.6, 4.6]], stumps: 6, rocks: 70, tufts: 320, webs: 4,
   },
   {
-    key: 'frost', name: 'Frostfall',
+    key: 'frost', alias: 'Frostfall', name: '霜降雪原',
     col: { stone: 0x6f7b90, stoneD: 0x454e60, stoneL: 0x9aa7b8, earth: 0x4b4a50, earthD: 0x2f3038, grass: 0x5a6068, grassD: 0x40454e, moss: 0x55606a, road: 0x7a808c, roadD: 0x555a66, mud: 0x3a3e48, bark: 0x2e2a2a, tuftA: 0x6f7a80, tuftB: 0xa9b4bc, leaf: 0x1d382f, leafL: 0x2c4f42 },
     strata: [0x7d8aa0, 0x3a4254, 0x5d6678, 0x9fb4c8, 0x4b5468, 0x6a7890, 0xb8cadb, 0x475062],
     hemi: [0x86a8e0, 0x323c50, 1.1], moon: [0xc6dcff, 1.38], fill: [0x5f7fb4, .28], moonPos: [16, 42, -34],
@@ -764,7 +764,7 @@ const BIOMES = [
     trees: [['pine', 17, 2.8, 5.4], ['tree', 4, 2.6, 4.2]], stumps: 4, rocks: 52, tufts: 110, webs: 0,
   },
   {
-    key: 'fen', name: 'Mirefen',
+    key: 'fen', alias: 'Mirefen', name: '幽光沼泽',
     col: { stone: 0x5c6858, stoneD: 0x384234, stoneL: 0x84907a, earth: 0x3b3a28, earthD: 0x24261a, grass: 0x40582c, grassD: 0x2c3e22, moss: 0x4c682e, road: 0x6c6a56, roadD: 0x48483a, mud: 0x2a281c, bark: 0x2c2820, tuftA: 0x486a30, tuftB: 0x7a8a40, leaf: 0x2a4626, leafL: 0x4c6c34 },
     strata: [0x5a5a40, 0x2c3226, 0x4a4030, 0x66705a, 0x3a3020, 0x44503a, 0x777a5c, 0x33382a],
     hemi: [0x4f9482, 0x1a2218, 1.05], moon: [0xa6e6c4, 1.3], fill: [0x2f6f66, .3], moonPos: [10, 46, -32],
@@ -777,7 +777,7 @@ const BIOMES = [
     trees: [['willow', 9, 3.0, 4.6], ['tree', 5, 2.6, 4.4]], stumps: 8, rocks: 42, tufts: 420, webs: 3,
   },
   {
-    key: 'ember', name: 'Emberscar',
+    key: 'ember', alias: 'Emberscar', name: '熔痕峡谷',
     col: { stone: 0x403c42, stoneD: 0x242228, stoneL: 0x5e5a62, earth: 0x2e2728, earthD: 0x1c1819, grass: 0x3a2f2c, grassD: 0x261e1c, moss: 0x3a3230, road: 0x5e5652, roadD: 0x3c3634, mud: 0x1e1716, bark: 0x15110f, tuftA: 0x3a2c24, tuftB: 0x6a4a30 },
     strata: [0x3a363c, 0x1c1a20, 0x5a2a22, 0x2a262c, 0x6e3a24, 0x242026, 0x4a4650, 0x301a18],
     hemi: [0x5c5470, 0x2c140e, 1.18], moon: [0xc0b0d0, 1.32], fill: [0xd04a20, .2], moonPos: [18, 40, -32],
@@ -790,7 +790,7 @@ const BIOMES = [
     trees: [['charred', 11, 2.6, 4.4]], stumps: 4, rocks: 80, tufts: 40, webs: 0,
   },
   {
-    key: 'dunes', name: 'Duskmesa',
+    key: 'dunes', alias: 'Duskmesa', name: '暮色台地',
     col: { stone: 0xb08e6c, stoneD: 0x7a5c48, stoneL: 0xd4b48c, earth: 0xa88c66, earthD: 0x7c6448, grass: 0xbca27a, grassD: 0x927856, moss: 0x7a7444, road: 0xa89478, roadD: 0x786652, mud: 0x64503a, bark: 0x4c3a28, tuftA: 0x8a8048, tuftB: 0xc0a860, leaf: 0x38582e, leafL: 0x66863e },
     strata: [0xb8845c, 0x8e5a40, 0xd6b080, 0x744a38, 0xc89866, 0x9c6a4c, 0xe4cca0, 0x805640],
     hemi: [0x6a6fc0, 0x3c3040, 1.1], moon: [0xd6c8ff, 1.5], fill: [0x2f8f9a, .34], moonPos: [26, 24, -36],
@@ -2947,10 +2947,10 @@ const G = {
   towers: [], mons: [], men: [], arrows: [], shells: [], stuck: [], hbars: [], phase: 'play',
 };
 const TOWER = {
-  archer: { name: 'Archer tower', short: 'Archers', icon: 'archer', cost: [70, 90, 140], range: [6.2, 6.8, 7.4], dmg: [9, 11, 14], rate: [.85, .78, .7], n: [1, 2, 3], air: true, ground: true, light: [80, 105, 140], desc: ['Fast flaming arrows.', 'Can hit flyers.'] },
-  bombard: { name: 'Bombard', short: 'Bombard', icon: 'bombard', cost: [120, 130, 190], range: [7.4, 8.0, 8.6], minRange: 2.3, dmg: [36, 60, 98], splash: [1.55, 1.8, 2.1], rate: [2.9, 2.7, 2.5], air: false, ground: true, light: [50, 62, 80], desc: ['Slow shells that burst.', 'Ground targets only.'] },
-  spire: { name: 'Storm spire', short: 'Spire', icon: 'spire', cost: [110, 120, 180], range: [5.5, 6.0, 6.5], dmg: [17, 25, 35], jumps: [3, 4, 6], rate: [2.3, 2.1, 1.9], slow: [.36, .42, .48], slowT: [1.3, 1.5, 1.7], air: true, ground: true, light: [16, 20, 26], desc: ['Chain lightning that slows.', 'Can hit flyers.'] },
-  guard: { name: 'Guard post', short: 'Guards', icon: 'guard', cost: [80, 90, 150], range: [3.4, 3.7, 4.0], n: [2, 3, 3], hp: [62, 90, 135], dmg: [7, 10, 15], rate: [7, 6, 5], air: false, ground: true, light: [55, 70, 90], desc: ['Footmen who block', 'and duel on the road.'] },
+  archer: { name: '箭塔', short: '弓箭手', icon: 'archer', cost: [70, 90, 140], range: [6.2, 6.8, 7.4], dmg: [9, 11, 14], rate: [.85, .78, .7], n: [1, 2, 3], air: true, ground: true, light: [80, 105, 140], desc: ['快速射出火箭。', '可攻击空中目标。'] },
+  bombard: { name: '火炮', short: '火炮', icon: 'bombard', cost: [120, 130, 190], range: [7.4, 8.0, 8.6], minRange: 2.3, dmg: [36, 60, 98], splash: [1.55, 1.8, 2.1], rate: [2.9, 2.7, 2.5], air: false, ground: true, light: [50, 62, 80], desc: ['炮弹射速慢，爆炸范围大。', '仅攻击地面目标。'] },
+  spire: { name: '风暴塔', short: '风暴塔', icon: 'spire', cost: [110, 120, 180], range: [5.5, 6.0, 6.5], dmg: [17, 25, 35], jumps: [3, 4, 6], rate: [2.3, 2.1, 1.9], slow: [.36, .42, .48], slowT: [1.3, 1.5, 1.7], air: true, ground: true, light: [16, 20, 26], desc: ['连锁闪电可使敌人减速。', '可攻击空中目标。'] },
+  guard: { name: '卫兵哨所', short: '卫兵', icon: 'guard', cost: [80, 90, 150], range: [3.4, 3.7, 4.0], n: [2, 3, 3], hp: [62, 90, 135], dmg: [7, 10, 15], rate: [7, 6, 5], air: false, ground: true, light: [55, 70, 90], desc: ['派出步兵拦截敌人，', '在路上与其交战。'] },
 };
 const TOWER_KINDS = ['archer', 'bombard', 'spire', 'guard'];
 
@@ -3359,33 +3359,33 @@ function explodeAt(x, y, z, dmg, splash, tower) {
 
 
 const MON = {
-  skel: { name: 'Skeleton', hp: 34, spd: 1.35, rad: .27, mass: 1, bounty: 6, lives: 1, hitH: .75, top: 1.45, dmg: 6, atkT: .95, eye: [3.4, .9, .2], scale: 1, death: 'bones', blade: true },
-  rat: { name: 'Giant rat', tip: 'Fast and frail. Comes in packs.', hp: 13, spd: 2.65, rad: .2, mass: .45, bounty: 3, lives: 1, hitH: .2, top: .5, dmg: 3, atkT: .6, eye: [3.2, .4, .3], scale: 1, death: 'fur', cat: 'swarm' },
-  slime: { name: 'Slime', tip: 'Splits in two when it dies.', hp: 95, spd: .82, rad: .42, mass: 2.2, bounty: 9, lives: 1, hitH: .3, top: .75, dmg: 8, atkT: 1.2, eye: [1.8, 2.8, .4], scale: 1, death: 'goo', hop: [.95, 2.35], split: ['slimelet', 2] },
-  slimelet: { name: 'Slimelet', hp: 30, spd: 1.2, rad: .26, mass: .9, bounty: 3, lives: 1, hitH: .2, top: .48, dmg: 4, atkT: 1.0, eye: [1.8, 2.8, .4], scale: .58, death: 'goo', hop: [1.25, 2.35], cat: 'swarm' },
-  knight: { name: 'Skeleton knight', tip: 'Its armor turns most arrows.', hp: 118, spd: 1.0, rad: .3, mass: 2.2, bounty: 15, lives: 1, hitH: .8, top: 1.6, dmg: 11, atkT: 1.05, eye: [.5, 1.7, 3.4], scale: 1.08, armor: .35, death: 'bones', blade: true, cat: 'armor', tint: [.74, .78, .9] },
-  bat: { name: 'Bat', tip: 'Flies over the road. Only archers and spires reach it.', hp: 20, spd: 2.3, rad: .22, mass: .3, bounty: 6, lives: 1, hitH: 0, top: .35, dmg: 0, atkT: 1, eye: [3.2, .5, .3], scale: 1.25, fly: true, death: 'bat', cat: 'air', alt: [2.9, 3.8], flap: 21 },
-  ghoul: { name: 'Ghoul', tip: 'Runs faster the more it is hurt.', hp: 40, spd: 1.85, rad: .27, mass: .9, bounty: 7, lives: 1, hitH: .5, top: .95, dmg: 9, atkT: .7, eye: [3.2, 2.8, .6], scale: .62, frenzy: .55, death: 'flesh', tint: [1.24, 1.03, 1.9] },
-  spider: { name: 'Cave spider', tip: 'Slips past your footmen.', hp: 20, spd: 2.25, rad: .24, mass: .4, bounty: 3, lives: 1, hitH: .18, top: .45, dmg: 4, atkT: .6, eye: [3.4, .3, .2], scale: 1, slip: true, death: 'bug', cat: 'swarm', tint: [.6, .55, .6] },
-  scarab: { name: 'Scarab', hp: 9, spd: 2.5, rad: .15, mass: .2, bounty: 1, lives: 1, hitH: .1, top: .28, dmg: 2, atkT: .6, eye: [1.2, 3.0, 2.6], scale: .5, slip: true, death: 'bug', cat: 'swarm', tint: [1.5, 1.15, .45] },
-  wolf: { name: 'Dire wolf', tip: 'Fast, and it bites hard.', hp: 38, spd: 2.7, rad: .3, mass: .9, bounty: 7, lives: 1, hitH: .4, top: .85, dmg: 12, atkT: .7, eye: [3.4, 2.6, .3], scale: 1, death: 'fur', cat: 'swarm', tint: [.8, .8, .9] },
-  bomber: { name: 'Sapper', tip: 'Its powder keg blows up friend and foe.', hp: 38, spd: 1.55, rad: .27, mass: 1, bounty: 8, lives: 2, hitH: .75, top: 1.55, dmg: 0, atkT: 1, eye: [3.6, 1.4, .2], scale: 1, explode: { r: 1.7, dmg: 46, men: 30 }, death: 'bones', tint: [.95, .85, .75] },
-  wraith: { name: 'Wraith', tip: 'Arrows and swords miss while it fades.', hp: 58, spd: 1.3, rad: .28, mass: 1, bounty: 11, lives: 1, hitH: .8, top: 1.5, dmg: 0, atkT: 1, eye: [.8, 2.4, 3.6], scale: 1, ghost: [1.7, 3.0], death: 'ghost' },
-  toad: { name: 'Bog toad', tip: 'Covers ground in long hops.', hp: 78, spd: 1.0, rad: .38, mass: 1.8, bounty: 9, lives: 1, hitH: .3, top: .75, dmg: 9, atkT: 1.0, eye: [3.0, 2.4, .3], scale: 1, hop: [1.2, 2.5], death: 'flesh' },
-  wisp: { name: 'Wisp', tip: 'A fast flyer. Easy to kill, hard to catch.', hp: 10, spd: 3.0, rad: .14, mass: .1, bounty: 2, lives: 1, hitH: 0, top: .3, dmg: 0, atkT: 1, eye: [1, 1, 1], scale: 1, fly: true, death: 'wisp', cat: 'air', alt: [1.3, 2.3], flap: 6, glow: 8 },
-  drummer: { name: 'War drummer', tip: 'Speeds up everything near it.', hp: 92, spd: 1.15, rad: .3, mass: 1.6, bounty: 14, lives: 1, hitH: .8, top: 2.35, dmg: 6, atkT: 1, eye: [3.6, .6, .2], scale: 1.05, aura: [3.4, .3], death: 'bones' },
-  gargoyle: { name: 'Gargoyle', tip: 'A flyer that shrugs off arrows.', hp: 90, spd: 1.6, rad: .32, mass: 1.2, bounty: 13, lives: 1, hitH: 0, top: .6, dmg: 0, atkT: 1, eye: [3.6, 1.2, .2], scale: 1.15, fly: true, armor: .5, death: 'rock', cat: 'air', alt: [2.4, 3.1], flap: 9 },
-  necro: { name: 'Necromancer', tip: 'Raises skeletons as it walks.', hp: 105, spd: .85, rad: .3, mass: 1.6, bounty: 18, lives: 1, hitH: .8, top: 1.8, dmg: 5, atkT: 1.2, eye: [.6, 3.4, 1.0], scale: 1.08, summon: { type: 'skel', n: 2, every: 7.5, max: 3, hp: .6 }, death: 'bones', tint: [.7, .74, .7] },
-  mummy: { name: 'Mummy', tip: 'Bursts into scarabs when it falls.', hp: 135, spd: .9, rad: .3, mass: 2, bounty: 14, lives: 1, hitH: .8, top: 1.55, dmg: 12, atkT: 1.1, eye: [.6, 3.0, 2.6], scale: 1.1, split: ['scarab', 3], death: 'bones', tint: [1.08, .95, .72] },
-  brute: { name: 'Troll', tip: 'Heals unless you keep hitting it.', hp: 360, spd: .82, rad: .5, mass: 8, bounty: 30, lives: 2, hitH: 1.0, top: 1.95, dmg: 24, atkT: 1.4, eye: [3.4, 2.4, .4], scale: 1.5, regen: .035, death: 'flesh', cat: 'armor', tint: [.83, .8, 2.0] },
-  golem: { name: 'Golem', tip: 'Shrugs off arrows and is hard to slow.', hp: 470, spd: .62, rad: .5, mass: 9, bounty: 34, lives: 2, hitH: 1.1, top: 2.1, dmg: 26, atkT: 1.5, eye: [3.2, 2.6, 1.6], scale: 1.5, armor: .35, slowRes: .5, death: 'rock', cat: 'armor' },
-  brood: { name: 'Brood mother', tip: 'Bursts into spiders when it falls.', hp: 230, spd: .92, rad: .55, mass: 5, bounty: 24, lives: 2, hitH: .45, top: 1.05, dmg: 14, atkT: 1.0, eye: [3.4, .3, .2], scale: 2.3, split: ['spider', 5], death: 'bug', tint: [.7, .5, .6] },
-  giant: { name: 'Bone Giant', tip: 'Slow and enormous. Hit it with everything.', hp: 1250, spd: .88, rad: .92, mass: 40, bounty: 200, lives: 5, hitH: 2.2, top: 4.0, dmg: 46, atkT: 1.7, eye: [5, .9, .2], scale: 2.7, boss: true, death: 'bones', blade: true, cat: 'armor' },
-  ogre: { name: 'Ogre', tip: 'Smashes footmen aside.', hp: 1400, spd: .8, rad: 1.0, mass: 46, bounty: 200, lives: 5, hitH: 1.9, top: 3.4, dmg: 52, atkT: 1.8, eye: [4.5, 2.2, .3], scale: 2.6, boss: true, death: 'flesh', blade: true, cat: 'armor' },
-  jotun: { name: 'Frost Jotun', tip: 'Its stomp freezes nearby towers.', hp: 1150, spd: .8, rad: 1.0, mass: 46, bounty: 200, lives: 5, hitH: 1.9, top: 3.6, dmg: 52, atkT: 1.8, eye: [.8, 2.4, 4], scale: 2.75, boss: true, stomp: { every: 10, r: 5.2, stun: 1.8 }, death: 'flesh', blade: true, cat: 'armor', tint: [1.0, 1.25, 3.4] },
-  queen: { name: 'Brood Queen', tip: 'Keeps hatching spiders.', hp: 1150, spd: .85, rad: 1.1, mass: 40, bounty: 200, lives: 5, hitH: 1.0, top: 2.0, dmg: 40, atkT: 1.5, eye: [3.8, .3, .9], scale: 4.2, boss: true, summon: { type: 'spider', n: 2, every: 8, max: 99, hp: 1 }, death: 'bug', cat: 'armor', tint: [.85, .55, 1.0] },
-  colossus: { name: 'Magma Colossus', tip: 'Speeds up when it is nearly dead.', hp: 1250, spd: .7, rad: 1.05, mass: 60, bounty: 200, lives: 5, hitH: 2.2, top: 4.3, dmg: 60, atkT: 2.0, eye: [4, 1.6, .3], scale: 3.0, boss: true, armor: .85, slowRes: .3, enrage: [.3, 1.25], death: 'rock', cat: 'armor', tint: [1.5, .5, .26] },
-  king: { name: 'The Buried King', tip: 'Summons mummies to walk with him.', hp: 1250, spd: .86, rad: .92, mass: 40, bounty: 200, lives: 5, hitH: 2.2, top: 4.2, dmg: 46, atkT: 1.7, eye: [.6, 3.0, 2.6], scale: 2.7, boss: true, summon: { type: 'mummy', n: 1, every: 9, max: 99, hp: .7 }, death: 'bones', blade: true, cat: 'armor', tint: [1.2, 1.0, .55] },
+  skel: { name: '骷髅兵', hp: 34, spd: 1.35, rad: .27, mass: 1, bounty: 6, lives: 1, hitH: .75, top: 1.45, dmg: 6, atkT: .95, eye: [3.4, .9, .2], scale: 1, death: 'bones', blade: true },
+  rat: { name: '巨鼠', tip: '成群出没，跑得快，但不耐打。', hp: 13, spd: 2.65, rad: .2, mass: .45, bounty: 3, lives: 1, hitH: .2, top: .5, dmg: 3, atkT: .6, eye: [3.2, .4, .3], scale: 1, death: 'fur', cat: 'swarm' },
+  slime: { name: '史莱姆', tip: '死亡时分裂成两只小史莱姆。', hp: 95, spd: .82, rad: .42, mass: 2.2, bounty: 9, lives: 1, hitH: .3, top: .75, dmg: 8, atkT: 1.2, eye: [1.8, 2.8, .4], scale: 1, death: 'goo', hop: [.95, 2.35], split: ['slimelet', 2] },
+  slimelet: { name: '小史莱姆', hp: 30, spd: 1.2, rad: .26, mass: .9, bounty: 3, lives: 1, hitH: .2, top: .48, dmg: 4, atkT: 1.0, eye: [1.8, 2.8, .4], scale: .58, death: 'goo', hop: [1.25, 2.35], cat: 'swarm' },
+  knight: { name: '骷髅骑士', tip: '重甲能挡下大部分箭矢。', hp: 118, spd: 1.0, rad: .3, mass: 2.2, bounty: 15, lives: 1, hitH: .8, top: 1.6, dmg: 11, atkT: 1.05, eye: [.5, 1.7, 3.4], scale: 1.08, armor: .35, death: 'bones', blade: true, cat: 'armor', tint: [.74, .78, .9] },
+  bat: { name: '蝙蝠', tip: '飞越道路，只有箭塔和风暴塔能击中它。', hp: 20, spd: 2.3, rad: .22, mass: .3, bounty: 6, lives: 1, hitH: 0, top: .35, dmg: 0, atkT: 1, eye: [3.2, .5, .3], scale: 1.25, fly: true, death: 'bat', cat: 'air', alt: [2.9, 3.8], flap: 21 },
+  ghoul: { name: '食尸鬼', tip: '伤得越重，跑得越快。', hp: 40, spd: 1.85, rad: .27, mass: .9, bounty: 7, lives: 1, hitH: .5, top: .95, dmg: 9, atkT: .7, eye: [3.2, 2.8, .6], scale: .62, frenzy: .55, death: 'flesh', tint: [1.24, 1.03, 1.9] },
+  spider: { name: '洞穴蜘蛛', tip: '能绕过步兵的拦截。', hp: 20, spd: 2.25, rad: .24, mass: .4, bounty: 3, lives: 1, hitH: .18, top: .45, dmg: 4, atkT: .6, eye: [3.4, .3, .2], scale: 1, slip: true, death: 'bug', cat: 'swarm', tint: [.6, .55, .6] },
+  scarab: { name: '圣甲虫', hp: 9, spd: 2.5, rad: .15, mass: .2, bounty: 1, lives: 1, hitH: .1, top: .28, dmg: 2, atkT: .6, eye: [1.2, 3.0, 2.6], scale: .5, slip: true, death: 'bug', cat: 'swarm', tint: [1.5, 1.15, .45] },
+  wolf: { name: '恐狼', tip: '奔跑迅捷，撕咬凶狠。', hp: 38, spd: 2.7, rad: .3, mass: .9, bounty: 7, lives: 1, hitH: .4, top: .85, dmg: 12, atkT: .7, eye: [3.4, 2.6, .3], scale: 1, death: 'fur', cat: 'swarm', tint: [.8, .8, .9] },
+  bomber: { name: '爆破兵', tip: '火药桶爆炸时会波及敌我双方。', hp: 38, spd: 1.55, rad: .27, mass: 1, bounty: 8, lives: 2, hitH: .75, top: 1.55, dmg: 0, atkT: 1, eye: [3.6, 1.4, .2], scale: 1, explode: { r: 1.7, dmg: 46, men: 30 }, death: 'bones', tint: [.95, .85, .75] },
+  wraith: { name: '幽魂', tip: '隐身时，刀剑和箭矢都会落空。', hp: 58, spd: 1.3, rad: .28, mass: 1, bounty: 11, lives: 1, hitH: .8, top: 1.5, dmg: 0, atkT: 1, eye: [.8, 2.4, 3.6], scale: 1, ghost: [1.7, 3.0], death: 'ghost' },
+  toad: { name: '沼泽蟾蜍', tip: '一跃就能前进很远。', hp: 78, spd: 1.0, rad: .38, mass: 1.8, bounty: 9, lives: 1, hitH: .3, top: .75, dmg: 9, atkT: 1.0, eye: [3.0, 2.4, .3], scale: 1, hop: [1.2, 2.5], death: 'flesh' },
+  wisp: { name: '鬼火', tip: '飞得快，很脆弱，却难以命中。', hp: 10, spd: 3.0, rad: .14, mass: .1, bounty: 2, lives: 1, hitH: 0, top: .3, dmg: 0, atkT: 1, eye: [1, 1, 1], scale: 1, fly: true, death: 'wisp', cat: 'air', alt: [1.3, 2.3], flap: 6, glow: 8 },
+  drummer: { name: '战鼓手', tip: '战鼓会为附近的怪物加速。', hp: 92, spd: 1.15, rad: .3, mass: 1.6, bounty: 14, lives: 1, hitH: .8, top: 2.35, dmg: 6, atkT: 1, eye: [3.6, .6, .2], scale: 1.05, aura: [3.4, .3], death: 'bones' },
+  gargoyle: { name: '石像鬼', tip: '能飞行，也能抵挡箭矢。', hp: 90, spd: 1.6, rad: .32, mass: 1.2, bounty: 13, lives: 1, hitH: 0, top: .6, dmg: 0, atkT: 1, eye: [3.6, 1.2, .2], scale: 1.15, fly: true, armor: .5, death: 'rock', cat: 'air', alt: [2.4, 3.1], flap: 9 },
+  necro: { name: '死灵法师', tip: '行进中不断唤起骷髅兵。', hp: 105, spd: .85, rad: .3, mass: 1.6, bounty: 18, lives: 1, hitH: .8, top: 1.8, dmg: 5, atkT: 1.2, eye: [.6, 3.4, 1.0], scale: 1.08, summon: { type: 'skel', n: 2, every: 7.5, max: 3, hp: .6 }, death: 'bones', tint: [.7, .74, .7] },
+  mummy: { name: '木乃伊', tip: '倒下时会涌出圣甲虫。', hp: 135, spd: .9, rad: .3, mass: 2, bounty: 14, lives: 1, hitH: .8, top: 1.55, dmg: 12, atkT: 1.1, eye: [.6, 3.0, 2.6], scale: 1.1, split: ['scarab', 3], death: 'bones', tint: [1.08, .95, .72] },
+  brute: { name: '巨魔', tip: '若不持续攻击，它就会恢复生命。', hp: 360, spd: .82, rad: .5, mass: 8, bounty: 30, lives: 2, hitH: 1.0, top: 1.95, dmg: 24, atkT: 1.4, eye: [3.4, 2.4, .4], scale: 1.5, regen: .035, death: 'flesh', cat: 'armor', tint: [.83, .8, 2.0] },
+  golem: { name: '石魔像', tip: '能抵挡箭矢，也很难被减速。', hp: 470, spd: .62, rad: .5, mass: 9, bounty: 34, lives: 2, hitH: 1.1, top: 2.1, dmg: 26, atkT: 1.5, eye: [3.2, 2.6, 1.6], scale: 1.5, armor: .35, slowRes: .5, death: 'rock', cat: 'armor' },
+  brood: { name: '育蛛母', tip: '倒下时会涌出洞穴蜘蛛。', hp: 230, spd: .92, rad: .55, mass: 5, bounty: 24, lives: 2, hitH: .45, top: 1.05, dmg: 14, atkT: 1.0, eye: [3.4, .3, .2], scale: 2.3, split: ['spider', 5], death: 'bug', tint: [.7, .5, .6] },
+  giant: { name: '白骨巨人', tip: '体型庞大，行动缓慢。集中火力！', hp: 1250, spd: .88, rad: .92, mass: 40, bounty: 200, lives: 5, hitH: 2.2, top: 4.0, dmg: 46, atkT: 1.7, eye: [5, .9, .2], scale: 2.7, boss: true, death: 'bones', blade: true, cat: 'armor' },
+  ogre: { name: '食人魔', tip: '能将拦路的步兵击退。', hp: 1400, spd: .8, rad: 1.0, mass: 46, bounty: 200, lives: 5, hitH: 1.9, top: 3.4, dmg: 52, atkT: 1.8, eye: [4.5, 2.2, .3], scale: 2.6, boss: true, death: 'flesh', blade: true, cat: 'armor' },
+  jotun: { name: '霜巨人', tip: '跺脚时会冻结附近的防御塔。', hp: 1150, spd: .8, rad: 1.0, mass: 46, bounty: 200, lives: 5, hitH: 1.9, top: 3.6, dmg: 52, atkT: 1.8, eye: [.8, 2.4, 4], scale: 2.75, boss: true, stomp: { every: 10, r: 5.2, stun: 1.8 }, death: 'flesh', blade: true, cat: 'armor', tint: [1.0, 1.25, 3.4] },
+  queen: { name: '蛛后', tip: '不断孵化洞穴蜘蛛。', hp: 1150, spd: .85, rad: 1.1, mass: 40, bounty: 200, lives: 5, hitH: 1.0, top: 2.0, dmg: 40, atkT: 1.5, eye: [3.8, .3, .9], scale: 4.2, boss: true, summon: { type: 'spider', n: 2, every: 8, max: 99, hp: 1 }, death: 'bug', cat: 'armor', tint: [.85, .55, 1.0] },
+  colossus: { name: '熔岩巨像', tip: '濒死时会加速。', hp: 1250, spd: .7, rad: 1.05, mass: 60, bounty: 200, lives: 5, hitH: 2.2, top: 4.3, dmg: 60, atkT: 2.0, eye: [4, 1.6, .3], scale: 3.0, boss: true, armor: .85, slowRes: .3, enrage: [.3, 1.25], death: 'rock', cat: 'armor', tint: [1.5, .5, .26] },
+  king: { name: '长眠之王', tip: '召唤木乃伊随行。', hp: 1250, spd: .86, rad: .92, mass: 40, bounty: 200, lives: 5, hitH: 2.2, top: 4.2, dmg: 46, atkT: 1.7, eye: [.6, 3.0, 2.6], scale: 2.7, boss: true, summon: { type: 'mummy', n: 1, every: 9, max: 99, hp: .7 }, death: 'bones', blade: true, cat: 'armor', tint: [1.2, 1.0, .55] },
 };
 
 function spawnMonster(type, o = {}) {
@@ -3776,7 +3776,7 @@ function buildWave(k, level) {
 function startWave() {
   G.k = G.k % 5 + 1; G.queue = buildWave(G.k, G.level); if (waveNumber() > G.best) { G.best = waveNumber(); try { localStorage.setItem('cinderwatch.best', '' + G.best); } catch (e) {} } G.waveT = 0; G.spawning = true; G.bossWave = G.k === 5; G.waveKills = 0; G.waveLeaks = 0; G.bossDown = false; G.trickle = 6; G.trickleN = 0;
   sfx(G.bossWave ? 'hornBoss' : 'horn', G.B.cave.x, G.B.cave.z, 1.1);
-  UI.banner(G.bossWave ? 'Wave ' + waveNumber() + ' · ' + MON[bossType()].name : 'Wave ' + waveNumber(), G.bossWave ? 3.6 : 2.2, G.bossWave);
+  UI.banner(G.bossWave ? '第 ' + waveNumber() + ' 波' + ' · ' + MON[bossType()].name : '第 ' + waveNumber() + ' 波', G.bossWave ? 3.6 : 2.2, G.bossWave);
 }
 function endWave() {
   const l = G.waveLeaks;
@@ -3881,8 +3881,8 @@ function aiThink(dt) {
 
 function setPhase(p) {
   G.phase = p; G.phaseT = 0;
-  if (p === 'clear') { G.advance = true; UI.banner('The pass holds', 3.2, false); UI.closeMenu(); }
-  if (p === 'defeat') { UI.banner('The beacon is out', 4.2, true); UI.closeMenu(); sfx('beaconOut', G.B.beacon.x, G.B.beacon.z, 1.2); fxEmbers(G.B.beacon.x, G.B.beacon.y, G.B.beacon.z, 60, .8); for (let i = 0; i < 14; i++) fxSmoke(G.B.beacon.x + rr(-.4, .4), G.B.beacon.y + rr(0, 1), G.B.beacon.z + rr(-.4, .4), rr(-.3, .3), rr(.8, 2), rr(-.3, .3), rr(2, 4), 1, 2, .2, .2, .22, .6, { drag: .5, rise: .2 }); }
+  if (p === 'clear') { G.advance = true; UI.banner('守住了！', 3.2, false); UI.closeMenu(); }
+  if (p === 'defeat') { UI.banner('烽火已熄', 4.2, true); UI.closeMenu(); sfx('beaconOut', G.B.beacon.x, G.B.beacon.z, 1.2); fxEmbers(G.B.beacon.x, G.B.beacon.y, G.B.beacon.z, 60, .8); for (let i = 0; i < 14; i++) fxSmoke(G.B.beacon.x + rr(-.4, .4), G.B.beacon.y + rr(0, 1), G.B.beacon.z + rr(-.4, .4), rr(-.3, .3), rr(.8, 2), rr(-.3, .3), rr(2, 4), 1, 2, .2, .2, .22, .6, { drag: .5, rise: .2 }); }
   if (p === 'crumble') startCrumble();
   if (p === 'rise') startRise();
 }
@@ -4094,8 +4094,14 @@ const PX = (() => {
   for (const ch in SRC) glyphs.set(ch, parse(SRC[ch]));
   const UNKNOWN = parse(UNKNOWN_SRC);
 
+  const chineseFont = '"PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+  const hasChinese = /[\u3000-\u9fff\uff00-\uffef]/;
+  const metrics = document.createElement('canvas').getContext('2d');
+  metrics.font = '90px ' + chineseFont;
+
   function measure(str) {
     str = String(str);
+    if (hasChinese.test(str)) return metrics.measureText(str).width / 10;
     let w = 0, n = 0;
     for (const ch of str) { w += (glyphs.get(ch) || UNKNOWN).w + GAP; n++; }
     return n ? w - GAP : 0;
@@ -4151,6 +4157,23 @@ const PX = (() => {
     if (!str.length) return 0;
     s = Math.max(1, Math.round(s || 1));
     const op = opts || NOOPT;
+    if (hasChinese.test(str)) {
+      ctx.save();
+      ctx.font = (9 * s) + 'px ' + chineseFont;
+      ctx.textAlign = op.align === 'c' ? 'center' : op.align === 'r' ? 'right' : 'left';
+      ctx.textBaseline = 'middle';
+      ctx.globalAlpha *= op.alpha === undefined ? 1 : op.alpha;
+      const centerY = y + LINE * s / 2;
+      if (op.outline) {
+        ctx.strokeStyle = op.outline;
+        ctx.lineWidth = s;
+        ctx.strokeText(str, x, centerY);
+      }
+      ctx.fillStyle = color || '#fff';
+      ctx.fillText(str, x, centerY);
+      ctx.restore();
+      return measure(str) * s;
+    }
     const e = run(str, color || '#ffffff', op.shadow || '', op.outline || '');
     const wpx = e.w * s;
     let dx = x;
@@ -4627,7 +4650,7 @@ const UI = (() => {
     if (G.slain !== U.lastSlain) { U.lastSlain = G.slain; U.slainBump = 1; }
     { const dpr = R.dpr || 1, iw = n => PX.iconSize(n)[0], m3 = PX.measure('000'); let sc = Math.max(2, Math.round(clamp(Math.min(R.cssH / 430, R.cssW / 225), 1.6, 4) * dpr));
       let st = 4; for (const [ic, v] of [['flame', G.lives], ['coin', Math.floor(U.goldShown)], ['skull', G.slain]]) st += iw(ic) + 8 + Math.max(PX.measure('' + v), m3);
-      const cm = Math.max(iw('helm') + 3 + PX.measure('AI commander'), PX.measure(U.touch ? 'Tap a pad to play' : 'Click a pad to take over')) + 12, minS = Math.max(2, Math.ceil(1.3 * dpr));
+      const cm = Math.max(iw('helm') + 3 + PX.measure('自动指挥'), PX.measure(U.touch ? '轻触塔位接管' : '点击塔位接管')) + 12, minS = Math.max(2, Math.ceil(1.3 * dpr));
       while (sc > minS && (st + cm + 13) * sc + R.safe[0] + R.safe[2] > R.dw) sc--;
       U.s = sc; }
     U.panning = !!(U.gest && U.gest.mode === 'pan');
@@ -4676,12 +4699,12 @@ const UI = (() => {
       PX.icon(c, st[0], x, iy, s, st[0] === 'flame' ? .55 + .45 * (G.lives / G.maxLives) : 1); if (st[0] === 'coin') { goldPos.x = x + iw * s / 2; goldPos.y = iy + ih * s / 2; }
       x += iw * s + 2 * s; text(st[1], x, y0 + Math.round((hS - LH) / 2) + s, st[2]); x += Math.max(tw(st[1]), tw('000')) + 6 * s;
     }
-    const wn = 'Wave ' + Math.max(1, waveNumber()), callable = G.phase === 'play' && !G.spawning && !G.bossWave && G.nextIn > .4;
+    const wn = '第 ' + Math.max(1, waveNumber()) + ' 波', callable = G.phase === 'play' && !G.spawning && !G.bossWave && G.nextIn > .4;
     let sub, frac = -1;
-    if (G.phase === 'play') { if (!G.spawning && !G.bossWave && G.nextIn > 0) { sub = callable && (tch || over(U.waveRect ? U.waveRect.x : -1, U.waveRect ? U.waveRect.y : -1, U.waveRect ? U.waveRect.w : 0, U.waveRect ? U.waveRect.h : 0)) ? (tch ? 'Tap to call · +' : 'Call now · +') + Math.round(G.nextIn * 3) : 'Next wave in ' + Math.ceil(G.nextIn); frac = 1 - G.nextIn / 6.5; } else { const n = G.mons.length + G.queue.length; sub = n + ' on the road'; } }
-    else sub = G.phase === 'defeat' ? 'The fire has died' : G.phase === 'clear' ? 'Boss defeated' : 'A new pass awaits';
-    const bw = PX.iconSize('banner')[0] * s, wW = Math.max(bw + 3 * s + tw(wn), tw(sub), tw('Next wave in 0'), tw('Tap to call · +00')) + pad * 2 + 4 * s, hW = LH * 2 + pad * 2 + s;
-    const you = U.playerActive(), ct = you ? 'You command' : 'AI commander', cs = tch ? (you ? 'Tap for the AI' : 'Tap a pad to play') : (you ? 'Click here for the AI' : 'Click a pad to take over');
+    if (G.phase === 'play') { if (!G.spawning && !G.bossWave && G.nextIn > 0) { sub = callable && (tch || over(U.waveRect ? U.waveRect.x : -1, U.waveRect ? U.waveRect.y : -1, U.waveRect ? U.waveRect.w : 0, U.waveRect ? U.waveRect.h : 0)) ? (tch ? '提前迎敌 +' : '提前迎敌 +') + Math.round(G.nextIn * 3) : '下波倒计时 ' + Math.ceil(G.nextIn); frac = 1 - G.nextIn / 6.5; } else { const n = G.mons.length + G.queue.length; sub = n + ' 个敌人来袭'; } }
+    else sub = G.phase === 'defeat' ? '烽火已熄' : G.phase === 'clear' ? '首领已败' : '即将进入新战场';
+    const bw = PX.iconSize('banner')[0] * s, wW = Math.max(bw + 3 * s + tw(wn), tw(sub), tw('下波倒计时 0'), tw('提前迎敌 +00')) + pad * 2 + 4 * s, hW = LH * 2 + pad * 2 + s;
+    const you = U.playerActive(), ct = you ? '你在指挥' : '自动指挥', cs = tch ? (you ? '轻触交还指挥权' : '轻触塔位接管') : (you ? '点击交还指挥权' : '点击塔位接管');
     const ic = you ? 'hand' : 'helm', icw = PX.iconSize(ic)[0] * s, cW = Math.max(icw + 3 * s + tw(ct), tw(cs)) + pad * 2 + 2 * s, xc = Wr - cW - 5 * s, g3 = 3 * s;
     const xw = Math.round(W / 2 - wW / 2);
     let yc = y0, yw = y0;
@@ -4709,34 +4732,34 @@ const UI = (() => {
     const corners = (x, y) => { const u = Math.round(zb / 9), q = Math.round(zb / 5), f = isFull(); c.fillStyle = COLR.tx; for (const [ax, ay] of [[0, 0], [1, 0], [0, 1], [1, 1]]) { const cx = x + (ax ? zb - q - u : q), cy = y + (ay ? zb - q - u : q), ix = f ? (ax ? -1 : 1) : (ax ? 1 : -1), iy = f ? (ay ? -1 : 1) : (ay ? 1 : -1); c.fillRect(cx, cy, u, u); c.fillRect(cx - ix * u, cy, u, u); c.fillRect(cx, cy - iy * u, u, u); } };
     const play = G.phase === 'play' || G.phase === 'defeat', nR = (fullscreenOK() && tch ? 3 : 2), rightW = nR * zb + (nR - 1) * g3;
     let xl = 5 * s + iL;
-    sq('pause', xl, zb, togglePause, G.paused ? 'Resume (P)' : 'Pause (P)', bars, G.paused); xl += zb + g3;
-    sq('speed', xl, zb, cycleSpeed, 'Speed (Tab)', label(G.speed + 'x', G.speed > 1 ? COLR.amber : COLR.tx), G.speed > 1); xl += zb + g3;
-    { const on = AU.ready && !AU.muted, icn = on ? 'sound' : 'mute', k = Math.max(s, Math.floor(zb / 14)), [iw2, ih2] = PX.iconSize(icn), lbl = tch ? 'Tap for sound' : 'Click for sound', wl = iw2 * s + 3 * s + tw(lbl) + pad * 2;
+    sq('pause', xl, zb, togglePause, G.paused ? '继续（P）' : '暂停（P）', bars, G.paused); xl += zb + g3;
+    sq('speed', xl, zb, cycleSpeed, '倍速（Tab）', label(G.speed + 'x', G.speed > 1 ? COLR.amber : COLR.tx), G.speed > 1); xl += zb + g3;
+    { const on = AU.ready && !AU.muted, icn = on ? 'sound' : 'mute', k = Math.max(s, Math.floor(zb / 14)), [iw2, ih2] = PX.iconSize(icn), lbl = tch ? '轻触开启声音' : '点击开启声音', wl = iw2 * s + 3 * s + tw(lbl) + pad * 2;
       const wide = !AU.ready && xl + wl + g3 + rightW + 5 * s + iR <= W;
-      U.soundRect = sq('sound', xl, wide ? wl : zb, soundTap, AU.ready ? (AU.muted ? 'Sound is off (M)' : 'Sound is on (M)') : 'Sound', (x, y) => { if (wide) { PX.icon(c, icn, x + pad, y + Math.round((zb - ih2 * s) / 2), s, .85); text(lbl, x + pad + iw2 * s + 3 * s, y + Math.round((zb - LH) / 2) + s, COLR.tx); } else PX.icon(c, icn, x + Math.round((zb - iw2 * k) / 2), y + Math.round((zb - ih2 * k) / 2), k, AU.ready ? 1 : .8); }, !AU.ready);
+      U.soundRect = sq('sound', xl, wide ? wl : zb, soundTap, AU.ready ? (AU.muted ? '已静音（M）' : '声音已开启（M）') : '声音', (x, y) => { if (wide) { PX.icon(c, icn, x + pad, y + Math.round((zb - ih2 * s) / 2), s, .85); text(lbl, x + pad + iw2 * s + 3 * s, y + Math.round((zb - LH) / 2) + s, COLR.tx); } else PX.icon(c, icn, x + Math.round((zb - iw2 * k) / 2), y + Math.round((zb - ih2 * k) / 2), k, AU.ready ? 1 : .8); }, !AU.ready);
       xl += (wide ? wl : zb) + g3; }
     let xr = Wr - 5 * s - zb; const cur = camZoomNow();
-    if (nR === 3) { sq('full', xr, zb, toggleFull, 'Full screen', corners, false); xr -= zb + g3; }
-    sq('zin', xr, zb, () => camZoomBy(1.5), 'Zoom in (+)', glyph('+', cur < 2.99 ? COLR.tx : '#5a5448'), false); xr -= zb + g3;
-    sq('zout', xr, zb, () => camZoomBy(1 / 1.5), 'Zoom out (-)', glyph('-', cur > camZoomMin() + .01 ? COLR.tx : '#5a5448'), false);
+    if (nR === 3) { sq('full', xr, zb, toggleFull, '全屏', corners, false); xr -= zb + g3; }
+    sq('zin', xr, zb, () => camZoomBy(1.5), '放大（+）', glyph('+', cur < 2.99 ? COLR.tx : '#5a5448'), false); xr -= zb + g3;
+    sq('zout', xr, zb, () => camZoomBy(1 / 1.5), '缩小（-）', glyph('-', cur > camZoomMin() + .01 ? COLR.tx : '#5a5448'), false);
     let yUp = yB - g3;
     if (CAM.man && play) {
-      const lbl = 'Follow the fight', w = tw(lbl) + pad * 2, fits = xr - g3 - w >= xl, xf2 = fits ? xr - g3 - w : Wr - w - 5 * s, yf = fits ? yB + Math.round((zb - hB) / 2) : yB - g3 - hB, hotF = over(xf2, yf, w, hB);
+      const lbl = '跟随战斗', w = tw(lbl) + pad * 2, fits = xr - g3 - w >= xl, xf2 = fits ? xr - g3 - w : Wr - w - 5 * s, yf = fits ? yB + Math.round((zb - hB) / 2) : yB - g3 - hB, hotF = over(xf2, yf, w, hB);
       plate(xf2, yf, w, hB, hotF ? { bd: COLR.bdHi, bg: COLR.bg2 } : { bd: '#8a6a3a' }); text(lbl, xf2 + pad, yf + pad - s, COLR.tx);
       U.followRect = { id: 'follow', x: xf2, y: yf, w, h: hB, hot: hotF, fn: () => { camReset(); sfx('uiClick', CAM.x, CAM.z, .6); }, hud: true }; U.hud.push(U.followRect); if (hotF) U.hudHot = true; if (!fits) yUp = yf - g3;
     } else U.followRect = null;
     if (tipB && !tch) { const w = tw(tipB.tip) + pad * 2, x = clamp(Math.round(tipB.x - w / 2), 4 * s + iL, Wr - w - 4 * s); plate(x, yB - g3 - hB, w, hB, { bd: COLR.bdHi }); text(tipB.tip, x + pad, yB - g3 - hB + pad - s, COLR.tx); yUp = Math.min(yUp, yB - g3 - hB - g3); }
-    const wrap = (str, maxW) => { const out = []; let cur2 = ''; for (const wd of str.split(' ')) { const t = cur2 ? cur2 + ' ' + wd : wd; if (cur2 && tw(t) > maxW) { out.push(cur2); cur2 = wd; } else cur2 = t; } if (cur2) out.push(cur2); return out; };
+    const wrap = (str, maxW) => { const out = []; let cur2 = ''; for (const wd of str) { const t = cur2 + wd; if (cur2 && tw(t) > maxW) { out.push(cur2); cur2 = wd; } else cur2 = t; } if (cur2) out.push(cur2); return out; };
     const boxW = Wr - iL - 10 * s;
-    if (G.paused) { const k = s + 1, t1 = 'Paused', w = PX.measure(t1) * k + pad * 4, h = PX.LINE * k + pad * 2; plate(Math.round(W / 2 - w / 2), yUp - h, w, h, { bd: COLR.bdHi }); PX.text(c, t1, W / 2, yUp - h + pad, k, COLR.amber, { align: 'c' }); yUp -= h + g3; }
+    if (G.paused) { const k = s + 1, t1 = '已暂停', w = PX.measure(t1) * k + pad * 4, h = PX.LINE * k + pad * 2; plate(Math.round(W / 2 - w / 2), yUp - h, w, h, { bd: COLR.bdHi }); PX.text(c, t1, W / 2, yUp - h + pad, k, COLR.amber, { align: 'c' }); yUp -= h + g3; }
     if (U.tip && !U.menu) {
-      const d = MON[U.tip.type], a = sat(Math.min(U.tip.t * 4, (5.2 - U.tip.t) * 2)), head = (d.boss ? 'Boss: ' : 'New: ') + d.name, lines = wrap(d.tip, Math.min(boxW - pad * 2, 46 * 6 * s));
+      const d = MON[U.tip.type], a = sat(Math.min(U.tip.t * 4, (5.2 - U.tip.t) * 2)), head = (d.boss ? '首领：' : '首次遭遇：') + d.name, lines = wrap(d.tip, Math.min(boxW - pad * 2, 46 * 6 * s));
       let w = tw(head); for (const l of lines) w = Math.max(w, tw(l)); w += pad * 2; const h = LH * (lines.length + 1) + pad * 2 - s, x = Math.round((iL + Wr - w) / 2), y = yUp - h;
       c.globalAlpha = a; plate(x, y, w, h, { bd: d.boss ? COLR.ember : '#8a6a3a' }); text(head, x + w / 2, y + pad - s, COLR.amber, { align: 'c' }); lines.forEach((l, k) => text(l, x + w / 2, y + pad - s + (k + 1) * LH, COLR.tx, { align: 'c' })); c.globalAlpha = 1; yUp = y - g3;
     } else {
       const first = U.titleT < 16, a = tch ? sat(Math.min(U.titleT - 7.2, first ? 1 : 3 - U.moved, U.manual && !first ? 0 : 1, 62 - U.titleT)) : sat(Math.min(U.titleT - 7.2, 3 - Math.min(U.moved, U.idle > 20 ? U.moved : 0) + (U.titleT < 18 ? 8 : 0)));
       if (a > .02 && !U.menu && !G.paused) {
-        const parts = tch ? ['Tap a pad to build', 'Drag to look around', 'Pinch or double-tap to zoom'] : ['Click a pad to build', '1-4 pick a tower', 'Space calls the next wave', 'Wheel zooms, drag moves the view'];
+        const parts = tch ? ['轻触塔位建塔', '拖动查看战场', '双指捏合或轻点两下缩放'] : ['点击塔位建塔', '按 1–4 选塔', '按空格提前迎敌', '滚轮缩放，拖动移动视角'];
         let lines = [parts.join(' · ')]; if (tw(lines[0]) + pad * 2 > boxW) { lines = parts.length > 3 ? [parts.slice(0, 2).join(' · '), parts.slice(2).join(' · ')] : parts; if (lines.some(l => tw(l) + pad * 2 > boxW)) lines = parts; }
         let w = 0; for (const l of lines) w = Math.max(w, tw(l)); w += pad * 2; const h = LH * lines.length + pad * 2 - s, hx = Math.round((iL + Wr - w) / 2), hy = yUp - h;
         if (w <= boxW) { c.globalAlpha = a; plate(hx, hy, w, h); lines.forEach((l, k) => text(l, hx + w / 2, hy + pad - s + k * LH, COLR.dim, { align: 'c' })); c.globalAlpha = 1; }
@@ -4766,11 +4789,11 @@ const UI = (() => {
       if (!m.tower) {
         const bwid = 31 * s, bh = 35 * s, gapb = 3 * s, rowW = 4 * bwid + 3 * gapb;
         let lit = null; const fk = U.gp.active ? TOWER_KINDS[m.focus % 4] : null;
-        const lines = k => k ? [TOWER[k].name].concat(TOWER[k].desc) : tch ? ['Choose a tower', 'Tap one to see what it does,', 'then tap it again to build.'] : ['Choose a tower', 'Hover or press 1 to 4', 'to see what each does.'];
-        let textW = tw('Tap again to build'); for (const k of [null].concat(TOWER_KINDS)) for (const l of lines(k)) textW = Math.max(textW, tw(l));
+        const lines = k => k ? [TOWER[k].name].concat(TOWER[k].desc) : tch ? ['选择防御塔', '轻触查看详情，', '再点一次即可建造。'] : ['选择防御塔', '悬停或按 1–4', '查看防御塔详情。'];
+        let textW = tw('再点一次建造'); for (const k of [null].concat(TOWER_KINDS)) for (const l of lines(k)) textW = Math.max(textW, tw(l));
         const wP = Math.max(rowW, textW) + mp * 2, hP = mp * 2 + LH + 3 * s + bh + 4 * s + LH * 3 + 2 * s + (tch ? LH + s : 0), [px, py] = place(wP, hP);
         U.menuRect = { x: px, y: py, w: wP, h: hP };
-        plate(px, py, wP, hP); text('Build here', px + mp, py + mp - s, COLR.amber);
+        plate(px, py, wP, hP); text('在此建塔', px + mp, py + mp - s, COLR.amber);
         const bx0 = px + Math.round((wP - rowW) / 2), by = py + mp + LH + 3 * s;
         TOWER_KINDS.forEach((kind, i) => {
           const d = TOWER[kind], can = G.gold >= d.cost[0], bx = bx0 + i * (bwid + gapb);
@@ -4783,12 +4806,12 @@ const UI = (() => {
         });
         const ls = lines(lit || fk), ty = by + bh + 4 * s;
         text(ls[0], px + mp, ty, lit || fk ? COLR.tx : COLR.dim); text(ls[1], px + mp, ty + LH + s, COLR.dim); if (ls[2]) text(ls[2], px + mp, ty + LH * 2 + s, COLR.dim);
-        if (tch && m.sel) { const can = G.gold >= TOWER[m.sel].cost[0]; text(can ? 'Tap again to build' : 'Not enough gold yet', px + mp, ty + LH * 3 + 2 * s, can ? COLR.amber : COLR.red); }
+        if (tch && m.sel) { const can = G.gold >= TOWER[m.sel].cost[0]; text(can ? '再点一次建造' : '金币不足', px + mp, ty + LH * 3 + 2 * s, can ? COLR.amber : COLR.red); }
       } else {
         const t = m.tower, d = t.def, maxed = t.lvl >= 2, upc = maxed ? 0 : d.cost[t.lvl + 1], can = !maxed && G.gold >= upc && t.state === 'active', refund = Math.round(t.spent * .6), L1 = t.lvl + 1;
-        const ul = maxed ? 'Max level' : 'Upgrade ' + upc, sl = m.sellArm ? 'Confirm +' + refund : 'Sell +' + refund, iw9 = 9 * s, bw3 = Math.max(tw(ul), tw(sl), tw('Confirm +' + refund)) + iw9 + 11 * s, bh = (tch ? 24 : 15) * s, by0 = Math.round((bh - LH) / 2);
-        const st = t.kind === 'guard' ? d.n[t.lvl] + ' footmen · ' + d.hp[t.lvl] + ' health' : 'Range ' + d.range[t.lvl].toFixed(1) + ' · Damage ' + d.dmg[t.lvl];
-        const nx = maxed ? t.kills + ' kills' : (t.kind === 'guard' ? 'Next: ' + d.n[L1] + ' footmen · ' + d.hp[L1] + ' health' : 'Next: range ' + d.range[L1].toFixed(1) + ' · damage ' + d.dmg[L1]);
+        const ul = maxed ? '已满级' : '升级 ' + upc, sl = m.sellArm ? '确认出售 +' + refund : '出售 +' + refund, iw9 = 9 * s, bw3 = Math.max(tw(ul), tw(sl), tw('确认出售 +' + refund)) + iw9 + 11 * s, bh = (tch ? 24 : 15) * s, by0 = Math.round((bh - LH) / 2);
+        const st = t.kind === 'guard' ? d.n[t.lvl] + ' 名步兵 · ' + d.hp[t.lvl] + ' 生命' : '射程 ' + d.range[t.lvl].toFixed(1) + ' · 伤害 ' + d.dmg[t.lvl];
+        const nx = maxed ? t.kills + ' 次击杀' : (t.kind === 'guard' ? '下一级：' + d.n[L1] + ' 名步兵 · ' + d.hp[L1] + ' 生命' : '下一级：射程 ' + d.range[L1].toFixed(1) + ' · 伤害 ' + d.dmg[L1]);
         const wP = Math.max(bw3 * 2 + 3 * s, tw(d.name) + 26 * s, tw(st), tw(nx)) + mp * 2, hP = mp * 2 + LH * 3 + 6 * s + bh, [px, py] = place(wP, hP);
         U.menuRect = { x: px, y: py, w: wP, h: hP };
         plate(px, py, wP, hP); text(d.name, px + mp, py + mp - s, COLR.amber);
@@ -4804,11 +4827,11 @@ const UI = (() => {
     }
     if (hot !== U.hotBtn && hot) sfx('uiHover', CAM.x, CAM.z, .5);
     U.hotBtn = hot;
-    if (U.armed && mouse && G.phase === 'play') { const l = TOWER[U.armed].name + ': click a pad', w = tw(l) + pad * 2; const xx = clamp(U.mx + 10 * s, 2 * s, W - w - 2 * s), yy = clamp(U.my + 10 * s, 2 * s, H - LH - pad * 2); plate(xx, yy, w, LH + pad * 2 - s, { bd: COLR.bdHi }); text(l, xx + pad, yy + pad - s, COLR.tx); }
+    if (U.armed && mouse && G.phase === 'play') { const l = TOWER[U.armed].name + '：点击塔位', w = tw(l) + pad * 2; const xx = clamp(U.mx + 10 * s, 2 * s, W - w - 2 * s), yy = clamp(U.my + 10 * s, 2 * s, H - LH - pad * 2); plate(xx, yy, w, LH + pad * 2 - s, { bd: COLR.bdHi }); text(l, xx + pad, yy + pad - s, COLR.tx); }
     if (U.titleT < 7 && !U.menu) {
       const a = sat(Math.min((U.titleT - .4) * 1.5, (6.6 - U.titleT) * 1.2));
       if (a > 0) {
-        const sc = s * 2, t1 = 'Cinderwatch', full = G.B.bio.name + ' · The commander plays until you take over.', t2 = tw(full) + pad * 4 > Wr - iL - 6 * s ? [G.B.bio.name, 'The commander plays', 'until you take over.'] : [full]; if (G.best > 5) t2.push('Best run: wave ' + G.best);
+        const sc = s * 2, t1 = '余烬守望', full = G.B.bio.name + ' · 自动指挥中，随时可接管。', t2 = tw(full) + pad * 4 > Wr - iL - 6 * s ? [G.B.bio.name, '自动指挥中', '你可以随时接管。'] : [full]; if (G.best > 5) t2.push('最高纪录：第 ' + G.best + ' 波');
         let w = PX.measure(t1) * sc; for (const l of t2) w = Math.max(w, tw(l)); w += pad * 4; const h = PX.LINE * sc + LH * t2.length + pad * 2 + 2 * s, yy = Hb - h - 12 * s - zb;
         c.globalAlpha = a; plate(Math.round(W / 2 - w / 2), yy, w, h); PX.text(c, t1, W / 2, yy + pad, sc, '#ffd9a8', { align: 'c' }); t2.forEach((l, k) => text(l, W / 2, yy + pad + PX.LINE * sc + s + k * LH, k === 0 && t2.length > 1 ? COLR.tx : COLR.dim, { align: 'c' })); c.globalAlpha = 1;
       }
@@ -5576,7 +5599,7 @@ function frame(now) {
   _acc += raw; _frames++;
   if (_acc >= 2) {
     const ms = _acc / _frames * 1000;
-    R.fpsText = (1000 / ms).toFixed(0) + ' fps  ' + R.iw + 'x' + R.ih + '  calls ' + R.renderer.info.render.calls + '  mons ' + G.mons.length;
+    R.fpsText = (1000 / ms).toFixed(0) + ' 帧/秒  ' + R.iw + 'x' + R.ih + '  绘制次数 ' + R.renderer.info.render.calls + '  怪物 ' + G.mons.length;
     if (ms > 22.5) { _slow++; _fast = 0; } else { _slow = 0; _fast = ms < 18.6 ? _fast + 1 : 0; }
     _hold -= _acc;
     if (!HASH.noscale) {
@@ -5600,7 +5623,7 @@ function boot() {
   }, 14, { rad: .1 });
   G.boardSeed = HASH.seed ? +HASH.seed : 1 + Math.floor(Math.random() * 9000);
   G.boardIndex = +(HASH.board || 0); G.level = +(HASH.level || 0);
-  { const bi = HASH.biome === undefined ? -1 : BIOMES.findIndex(b => b.key === HASH.biome || b.name.toLowerCase() === String(HASH.biome).toLowerCase()); BIOME.start = (bi >= 0 ? bi : HASH.biome !== undefined && isFinite(+HASH.biome) ? +HASH.biome : HASH.seed ? 0 : Math.floor(Math.random() * BIOMES.length)) - G.boardIndex; }
+  { const bi = HASH.biome === undefined ? -1 : BIOMES.findIndex(b => b.key === HASH.biome || b.alias.toLowerCase() === String(HASH.biome).toLowerCase() || b.name.toLowerCase() === String(HASH.biome).toLowerCase()); BIOME.start = (bi >= 0 ? bi : HASH.biome !== undefined && isFinite(+HASH.biome) ? +HASH.biome : HASH.seed ? 0 : Math.floor(Math.random() * BIOMES.length)) - G.boardIndex; }
   const B = G.B = buildBoard(G.boardSeed++, G.boardIndex++);
   R.scene.add(B.group); activateBoard(B, true);
   beginBattle(true);
@@ -5624,7 +5647,7 @@ function boot() {
 }
 function start() {
   try { boot(); }
-  catch (e) { const ld = document.getElementById('load'); if (ld) ld.innerHTML = 'Cinderwatch could not start.<br><small>It needs a browser with WebGL 2 turned on.</small>'; throw e; }
+  catch (e) { const ld = document.getElementById('load'); if (ld) ld.innerHTML = '余烬守望启动失败。<br><small>请在浏览器中启用 WebGL 2 后重试。</small>'; throw e; }
 }
 if (HASH.manual || HASH.ff) start(); else requestAnimationFrame(() => setTimeout(start, 0));
 

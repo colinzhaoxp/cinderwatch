@@ -206,7 +206,7 @@ const UI = (() => {
     if (G.slain !== U.lastSlain) { U.lastSlain = G.slain; U.slainBump = 1; }
     { const dpr = R.dpr || 1, iw = n => PX.iconSize(n)[0], m3 = PX.measure('000'); let sc = Math.max(2, Math.round(clamp(Math.min(R.cssH / 430, R.cssW / 225), 1.6, 4) * dpr));
       let st = 4; for (const [ic, v] of [['flame', G.lives], ['coin', Math.floor(U.goldShown)], ['skull', G.slain]]) st += iw(ic) + 8 + Math.max(PX.measure('' + v), m3);
-      const cm = Math.max(iw('helm') + 3 + PX.measure('AI commander'), PX.measure(U.touch ? 'Tap a pad to play' : 'Click a pad to take over')) + 12, minS = Math.max(2, Math.ceil(1.3 * dpr));
+      const cm = Math.max(iw('helm') + 3 + PX.measure('自动指挥'), PX.measure(U.touch ? '轻触塔位接管' : '点击塔位接管')) + 12, minS = Math.max(2, Math.ceil(1.3 * dpr));
       while (sc > minS && (st + cm + 13) * sc + R.safe[0] + R.safe[2] > R.dw) sc--;
       U.s = sc; }
     U.panning = !!(U.gest && U.gest.mode === 'pan');
@@ -255,12 +255,12 @@ const UI = (() => {
       PX.icon(c, st[0], x, iy, s, st[0] === 'flame' ? .55 + .45 * (G.lives / G.maxLives) : 1); if (st[0] === 'coin') { goldPos.x = x + iw * s / 2; goldPos.y = iy + ih * s / 2; }
       x += iw * s + 2 * s; text(st[1], x, y0 + Math.round((hS - LH) / 2) + s, st[2]); x += Math.max(tw(st[1]), tw('000')) + 6 * s;
     }
-    const wn = 'Wave ' + Math.max(1, waveNumber()), callable = G.phase === 'play' && !G.spawning && !G.bossWave && G.nextIn > .4;
+    const wn = '第 ' + Math.max(1, waveNumber()) + ' 波', callable = G.phase === 'play' && !G.spawning && !G.bossWave && G.nextIn > .4;
     let sub, frac = -1;
-    if (G.phase === 'play') { if (!G.spawning && !G.bossWave && G.nextIn > 0) { sub = callable && (tch || over(U.waveRect ? U.waveRect.x : -1, U.waveRect ? U.waveRect.y : -1, U.waveRect ? U.waveRect.w : 0, U.waveRect ? U.waveRect.h : 0)) ? (tch ? 'Tap to call · +' : 'Call now · +') + Math.round(G.nextIn * 3) : 'Next wave in ' + Math.ceil(G.nextIn); frac = 1 - G.nextIn / 6.5; } else { const n = G.mons.length + G.queue.length; sub = n + ' on the road'; } }
-    else sub = G.phase === 'defeat' ? 'The fire has died' : G.phase === 'clear' ? 'Boss defeated' : 'A new pass awaits';
-    const bw = PX.iconSize('banner')[0] * s, wW = Math.max(bw + 3 * s + tw(wn), tw(sub), tw('Next wave in 0'), tw('Tap to call · +00')) + pad * 2 + 4 * s, hW = LH * 2 + pad * 2 + s;
-    const you = U.playerActive(), ct = you ? 'You command' : 'AI commander', cs = tch ? (you ? 'Tap for the AI' : 'Tap a pad to play') : (you ? 'Click here for the AI' : 'Click a pad to take over');
+    if (G.phase === 'play') { if (!G.spawning && !G.bossWave && G.nextIn > 0) { sub = callable && (tch || over(U.waveRect ? U.waveRect.x : -1, U.waveRect ? U.waveRect.y : -1, U.waveRect ? U.waveRect.w : 0, U.waveRect ? U.waveRect.h : 0)) ? (tch ? '提前迎敌 +' : '提前迎敌 +') + Math.round(G.nextIn * 3) : '下波倒计时 ' + Math.ceil(G.nextIn); frac = 1 - G.nextIn / 6.5; } else { const n = G.mons.length + G.queue.length; sub = n + ' 个敌人来袭'; } }
+    else sub = G.phase === 'defeat' ? '烽火已熄' : G.phase === 'clear' ? '首领已败' : '即将进入新战场';
+    const bw = PX.iconSize('banner')[0] * s, wW = Math.max(bw + 3 * s + tw(wn), tw(sub), tw('下波倒计时 0'), tw('提前迎敌 +00')) + pad * 2 + 4 * s, hW = LH * 2 + pad * 2 + s;
+    const you = U.playerActive(), ct = you ? '你在指挥' : '自动指挥', cs = tch ? (you ? '轻触交还指挥权' : '轻触塔位接管') : (you ? '点击交还指挥权' : '点击塔位接管');
     const ic = you ? 'hand' : 'helm', icw = PX.iconSize(ic)[0] * s, cW = Math.max(icw + 3 * s + tw(ct), tw(cs)) + pad * 2 + 2 * s, xc = Wr - cW - 5 * s, g3 = 3 * s;
     const xw = Math.round(W / 2 - wW / 2);
     let yc = y0, yw = y0;
@@ -288,34 +288,34 @@ const UI = (() => {
     const corners = (x, y) => { const u = Math.round(zb / 9), q = Math.round(zb / 5), f = isFull(); c.fillStyle = COLR.tx; for (const [ax, ay] of [[0, 0], [1, 0], [0, 1], [1, 1]]) { const cx = x + (ax ? zb - q - u : q), cy = y + (ay ? zb - q - u : q), ix = f ? (ax ? -1 : 1) : (ax ? 1 : -1), iy = f ? (ay ? -1 : 1) : (ay ? 1 : -1); c.fillRect(cx, cy, u, u); c.fillRect(cx - ix * u, cy, u, u); c.fillRect(cx, cy - iy * u, u, u); } };
     const play = G.phase === 'play' || G.phase === 'defeat', nR = (fullscreenOK() && tch ? 3 : 2), rightW = nR * zb + (nR - 1) * g3;
     let xl = 5 * s + iL;
-    sq('pause', xl, zb, togglePause, G.paused ? 'Resume (P)' : 'Pause (P)', bars, G.paused); xl += zb + g3;
-    sq('speed', xl, zb, cycleSpeed, 'Speed (Tab)', label(G.speed + 'x', G.speed > 1 ? COLR.amber : COLR.tx), G.speed > 1); xl += zb + g3;
-    { const on = AU.ready && !AU.muted, icn = on ? 'sound' : 'mute', k = Math.max(s, Math.floor(zb / 14)), [iw2, ih2] = PX.iconSize(icn), lbl = tch ? 'Tap for sound' : 'Click for sound', wl = iw2 * s + 3 * s + tw(lbl) + pad * 2;
+    sq('pause', xl, zb, togglePause, G.paused ? '继续（P）' : '暂停（P）', bars, G.paused); xl += zb + g3;
+    sq('speed', xl, zb, cycleSpeed, '倍速（Tab）', label(G.speed + 'x', G.speed > 1 ? COLR.amber : COLR.tx), G.speed > 1); xl += zb + g3;
+    { const on = AU.ready && !AU.muted, icn = on ? 'sound' : 'mute', k = Math.max(s, Math.floor(zb / 14)), [iw2, ih2] = PX.iconSize(icn), lbl = tch ? '轻触开启声音' : '点击开启声音', wl = iw2 * s + 3 * s + tw(lbl) + pad * 2;
       const wide = !AU.ready && xl + wl + g3 + rightW + 5 * s + iR <= W;
-      U.soundRect = sq('sound', xl, wide ? wl : zb, soundTap, AU.ready ? (AU.muted ? 'Sound is off (M)' : 'Sound is on (M)') : 'Sound', (x, y) => { if (wide) { PX.icon(c, icn, x + pad, y + Math.round((zb - ih2 * s) / 2), s, .85); text(lbl, x + pad + iw2 * s + 3 * s, y + Math.round((zb - LH) / 2) + s, COLR.tx); } else PX.icon(c, icn, x + Math.round((zb - iw2 * k) / 2), y + Math.round((zb - ih2 * k) / 2), k, AU.ready ? 1 : .8); }, !AU.ready);
+      U.soundRect = sq('sound', xl, wide ? wl : zb, soundTap, AU.ready ? (AU.muted ? '已静音（M）' : '声音已开启（M）') : '声音', (x, y) => { if (wide) { PX.icon(c, icn, x + pad, y + Math.round((zb - ih2 * s) / 2), s, .85); text(lbl, x + pad + iw2 * s + 3 * s, y + Math.round((zb - LH) / 2) + s, COLR.tx); } else PX.icon(c, icn, x + Math.round((zb - iw2 * k) / 2), y + Math.round((zb - ih2 * k) / 2), k, AU.ready ? 1 : .8); }, !AU.ready);
       xl += (wide ? wl : zb) + g3; }
     let xr = Wr - 5 * s - zb; const cur = camZoomNow();
-    if (nR === 3) { sq('full', xr, zb, toggleFull, 'Full screen', corners, false); xr -= zb + g3; }
-    sq('zin', xr, zb, () => camZoomBy(1.5), 'Zoom in (+)', glyph('+', cur < 2.99 ? COLR.tx : '#5a5448'), false); xr -= zb + g3;
-    sq('zout', xr, zb, () => camZoomBy(1 / 1.5), 'Zoom out (-)', glyph('-', cur > camZoomMin() + .01 ? COLR.tx : '#5a5448'), false);
+    if (nR === 3) { sq('full', xr, zb, toggleFull, '全屏', corners, false); xr -= zb + g3; }
+    sq('zin', xr, zb, () => camZoomBy(1.5), '放大（+）', glyph('+', cur < 2.99 ? COLR.tx : '#5a5448'), false); xr -= zb + g3;
+    sq('zout', xr, zb, () => camZoomBy(1 / 1.5), '缩小（-）', glyph('-', cur > camZoomMin() + .01 ? COLR.tx : '#5a5448'), false);
     let yUp = yB - g3;
     if (CAM.man && play) {
-      const lbl = 'Follow the fight', w = tw(lbl) + pad * 2, fits = xr - g3 - w >= xl, xf2 = fits ? xr - g3 - w : Wr - w - 5 * s, yf = fits ? yB + Math.round((zb - hB) / 2) : yB - g3 - hB, hotF = over(xf2, yf, w, hB);
+      const lbl = '跟随战斗', w = tw(lbl) + pad * 2, fits = xr - g3 - w >= xl, xf2 = fits ? xr - g3 - w : Wr - w - 5 * s, yf = fits ? yB + Math.round((zb - hB) / 2) : yB - g3 - hB, hotF = over(xf2, yf, w, hB);
       plate(xf2, yf, w, hB, hotF ? { bd: COLR.bdHi, bg: COLR.bg2 } : { bd: '#8a6a3a' }); text(lbl, xf2 + pad, yf + pad - s, COLR.tx);
       U.followRect = { id: 'follow', x: xf2, y: yf, w, h: hB, hot: hotF, fn: () => { camReset(); sfx('uiClick', CAM.x, CAM.z, .6); }, hud: true }; U.hud.push(U.followRect); if (hotF) U.hudHot = true; if (!fits) yUp = yf - g3;
     } else U.followRect = null;
     if (tipB && !tch) { const w = tw(tipB.tip) + pad * 2, x = clamp(Math.round(tipB.x - w / 2), 4 * s + iL, Wr - w - 4 * s); plate(x, yB - g3 - hB, w, hB, { bd: COLR.bdHi }); text(tipB.tip, x + pad, yB - g3 - hB + pad - s, COLR.tx); yUp = Math.min(yUp, yB - g3 - hB - g3); }
-    const wrap = (str, maxW) => { const out = []; let cur2 = ''; for (const wd of str.split(' ')) { const t = cur2 ? cur2 + ' ' + wd : wd; if (cur2 && tw(t) > maxW) { out.push(cur2); cur2 = wd; } else cur2 = t; } if (cur2) out.push(cur2); return out; };
+    const wrap = (str, maxW) => { const out = []; let cur2 = ''; for (const wd of str) { const t = cur2 + wd; if (cur2 && tw(t) > maxW) { out.push(cur2); cur2 = wd; } else cur2 = t; } if (cur2) out.push(cur2); return out; };
     const boxW = Wr - iL - 10 * s;
-    if (G.paused) { const k = s + 1, t1 = 'Paused', w = PX.measure(t1) * k + pad * 4, h = PX.LINE * k + pad * 2; plate(Math.round(W / 2 - w / 2), yUp - h, w, h, { bd: COLR.bdHi }); PX.text(c, t1, W / 2, yUp - h + pad, k, COLR.amber, { align: 'c' }); yUp -= h + g3; }
+    if (G.paused) { const k = s + 1, t1 = '已暂停', w = PX.measure(t1) * k + pad * 4, h = PX.LINE * k + pad * 2; plate(Math.round(W / 2 - w / 2), yUp - h, w, h, { bd: COLR.bdHi }); PX.text(c, t1, W / 2, yUp - h + pad, k, COLR.amber, { align: 'c' }); yUp -= h + g3; }
     if (U.tip && !U.menu) {
-      const d = MON[U.tip.type], a = sat(Math.min(U.tip.t * 4, (5.2 - U.tip.t) * 2)), head = (d.boss ? 'Boss: ' : 'New: ') + d.name, lines = wrap(d.tip, Math.min(boxW - pad * 2, 46 * 6 * s));
+      const d = MON[U.tip.type], a = sat(Math.min(U.tip.t * 4, (5.2 - U.tip.t) * 2)), head = (d.boss ? '首领：' : '首次遭遇：') + d.name, lines = wrap(d.tip, Math.min(boxW - pad * 2, 46 * 6 * s));
       let w = tw(head); for (const l of lines) w = Math.max(w, tw(l)); w += pad * 2; const h = LH * (lines.length + 1) + pad * 2 - s, x = Math.round((iL + Wr - w) / 2), y = yUp - h;
       c.globalAlpha = a; plate(x, y, w, h, { bd: d.boss ? COLR.ember : '#8a6a3a' }); text(head, x + w / 2, y + pad - s, COLR.amber, { align: 'c' }); lines.forEach((l, k) => text(l, x + w / 2, y + pad - s + (k + 1) * LH, COLR.tx, { align: 'c' })); c.globalAlpha = 1; yUp = y - g3;
     } else {
       const first = U.titleT < 16, a = tch ? sat(Math.min(U.titleT - 7.2, first ? 1 : 3 - U.moved, U.manual && !first ? 0 : 1, 62 - U.titleT)) : sat(Math.min(U.titleT - 7.2, 3 - Math.min(U.moved, U.idle > 20 ? U.moved : 0) + (U.titleT < 18 ? 8 : 0)));
       if (a > .02 && !U.menu && !G.paused) {
-        const parts = tch ? ['Tap a pad to build', 'Drag to look around', 'Pinch or double-tap to zoom'] : ['Click a pad to build', '1-4 pick a tower', 'Space calls the next wave', 'Wheel zooms, drag moves the view'];
+        const parts = tch ? ['轻触塔位建塔', '拖动查看战场', '双指捏合或轻点两下缩放'] : ['点击塔位建塔', '按 1–4 选塔', '按空格提前迎敌', '滚轮缩放，拖动移动视角'];
         let lines = [parts.join(' · ')]; if (tw(lines[0]) + pad * 2 > boxW) { lines = parts.length > 3 ? [parts.slice(0, 2).join(' · '), parts.slice(2).join(' · ')] : parts; if (lines.some(l => tw(l) + pad * 2 > boxW)) lines = parts; }
         let w = 0; for (const l of lines) w = Math.max(w, tw(l)); w += pad * 2; const h = LH * lines.length + pad * 2 - s, hx = Math.round((iL + Wr - w) / 2), hy = yUp - h;
         if (w <= boxW) { c.globalAlpha = a; plate(hx, hy, w, h); lines.forEach((l, k) => text(l, hx + w / 2, hy + pad - s + k * LH, COLR.dim, { align: 'c' })); c.globalAlpha = 1; }
@@ -345,11 +345,11 @@ const UI = (() => {
       if (!m.tower) {
         const bwid = 31 * s, bh = 35 * s, gapb = 3 * s, rowW = 4 * bwid + 3 * gapb;
         let lit = null; const fk = U.gp.active ? TOWER_KINDS[m.focus % 4] : null;
-        const lines = k => k ? [TOWER[k].name].concat(TOWER[k].desc) : tch ? ['Choose a tower', 'Tap one to see what it does,', 'then tap it again to build.'] : ['Choose a tower', 'Hover or press 1 to 4', 'to see what each does.'];
-        let textW = tw('Tap again to build'); for (const k of [null].concat(TOWER_KINDS)) for (const l of lines(k)) textW = Math.max(textW, tw(l));
+        const lines = k => k ? [TOWER[k].name].concat(TOWER[k].desc) : tch ? ['选择防御塔', '轻触查看详情，', '再点一次即可建造。'] : ['选择防御塔', '悬停或按 1–4', '查看防御塔详情。'];
+        let textW = tw('再点一次建造'); for (const k of [null].concat(TOWER_KINDS)) for (const l of lines(k)) textW = Math.max(textW, tw(l));
         const wP = Math.max(rowW, textW) + mp * 2, hP = mp * 2 + LH + 3 * s + bh + 4 * s + LH * 3 + 2 * s + (tch ? LH + s : 0), [px, py] = place(wP, hP);
         U.menuRect = { x: px, y: py, w: wP, h: hP };
-        plate(px, py, wP, hP); text('Build here', px + mp, py + mp - s, COLR.amber);
+        plate(px, py, wP, hP); text('在此建塔', px + mp, py + mp - s, COLR.amber);
         const bx0 = px + Math.round((wP - rowW) / 2), by = py + mp + LH + 3 * s;
         TOWER_KINDS.forEach((kind, i) => {
           const d = TOWER[kind], can = G.gold >= d.cost[0], bx = bx0 + i * (bwid + gapb);
@@ -362,12 +362,12 @@ const UI = (() => {
         });
         const ls = lines(lit || fk), ty = by + bh + 4 * s;
         text(ls[0], px + mp, ty, lit || fk ? COLR.tx : COLR.dim); text(ls[1], px + mp, ty + LH + s, COLR.dim); if (ls[2]) text(ls[2], px + mp, ty + LH * 2 + s, COLR.dim);
-        if (tch && m.sel) { const can = G.gold >= TOWER[m.sel].cost[0]; text(can ? 'Tap again to build' : 'Not enough gold yet', px + mp, ty + LH * 3 + 2 * s, can ? COLR.amber : COLR.red); }
+        if (tch && m.sel) { const can = G.gold >= TOWER[m.sel].cost[0]; text(can ? '再点一次建造' : '金币不足', px + mp, ty + LH * 3 + 2 * s, can ? COLR.amber : COLR.red); }
       } else {
         const t = m.tower, d = t.def, maxed = t.lvl >= 2, upc = maxed ? 0 : d.cost[t.lvl + 1], can = !maxed && G.gold >= upc && t.state === 'active', refund = Math.round(t.spent * .6), L1 = t.lvl + 1;
-        const ul = maxed ? 'Max level' : 'Upgrade ' + upc, sl = m.sellArm ? 'Confirm +' + refund : 'Sell +' + refund, iw9 = 9 * s, bw3 = Math.max(tw(ul), tw(sl), tw('Confirm +' + refund)) + iw9 + 11 * s, bh = (tch ? 24 : 15) * s, by0 = Math.round((bh - LH) / 2);
-        const st = t.kind === 'guard' ? d.n[t.lvl] + ' footmen · ' + d.hp[t.lvl] + ' health' : 'Range ' + d.range[t.lvl].toFixed(1) + ' · Damage ' + d.dmg[t.lvl];
-        const nx = maxed ? t.kills + ' kills' : (t.kind === 'guard' ? 'Next: ' + d.n[L1] + ' footmen · ' + d.hp[L1] + ' health' : 'Next: range ' + d.range[L1].toFixed(1) + ' · damage ' + d.dmg[L1]);
+        const ul = maxed ? '已满级' : '升级 ' + upc, sl = m.sellArm ? '确认出售 +' + refund : '出售 +' + refund, iw9 = 9 * s, bw3 = Math.max(tw(ul), tw(sl), tw('确认出售 +' + refund)) + iw9 + 11 * s, bh = (tch ? 24 : 15) * s, by0 = Math.round((bh - LH) / 2);
+        const st = t.kind === 'guard' ? d.n[t.lvl] + ' 名步兵 · ' + d.hp[t.lvl] + ' 生命' : '射程 ' + d.range[t.lvl].toFixed(1) + ' · 伤害 ' + d.dmg[t.lvl];
+        const nx = maxed ? t.kills + ' 次击杀' : (t.kind === 'guard' ? '下一级：' + d.n[L1] + ' 名步兵 · ' + d.hp[L1] + ' 生命' : '下一级：射程 ' + d.range[L1].toFixed(1) + ' · 伤害 ' + d.dmg[L1]);
         const wP = Math.max(bw3 * 2 + 3 * s, tw(d.name) + 26 * s, tw(st), tw(nx)) + mp * 2, hP = mp * 2 + LH * 3 + 6 * s + bh, [px, py] = place(wP, hP);
         U.menuRect = { x: px, y: py, w: wP, h: hP };
         plate(px, py, wP, hP); text(d.name, px + mp, py + mp - s, COLR.amber);
@@ -383,11 +383,11 @@ const UI = (() => {
     }
     if (hot !== U.hotBtn && hot) sfx('uiHover', CAM.x, CAM.z, .5);
     U.hotBtn = hot;
-    if (U.armed && mouse && G.phase === 'play') { const l = TOWER[U.armed].name + ': click a pad', w = tw(l) + pad * 2; const xx = clamp(U.mx + 10 * s, 2 * s, W - w - 2 * s), yy = clamp(U.my + 10 * s, 2 * s, H - LH - pad * 2); plate(xx, yy, w, LH + pad * 2 - s, { bd: COLR.bdHi }); text(l, xx + pad, yy + pad - s, COLR.tx); }
+    if (U.armed && mouse && G.phase === 'play') { const l = TOWER[U.armed].name + '：点击塔位', w = tw(l) + pad * 2; const xx = clamp(U.mx + 10 * s, 2 * s, W - w - 2 * s), yy = clamp(U.my + 10 * s, 2 * s, H - LH - pad * 2); plate(xx, yy, w, LH + pad * 2 - s, { bd: COLR.bdHi }); text(l, xx + pad, yy + pad - s, COLR.tx); }
     if (U.titleT < 7 && !U.menu) {
       const a = sat(Math.min((U.titleT - .4) * 1.5, (6.6 - U.titleT) * 1.2));
       if (a > 0) {
-        const sc = s * 2, t1 = 'Cinderwatch', full = G.B.bio.name + ' · The commander plays until you take over.', t2 = tw(full) + pad * 4 > Wr - iL - 6 * s ? [G.B.bio.name, 'The commander plays', 'until you take over.'] : [full]; if (G.best > 5) t2.push('Best run: wave ' + G.best);
+        const sc = s * 2, t1 = '余烬守望', full = G.B.bio.name + ' · 自动指挥中，随时可接管。', t2 = tw(full) + pad * 4 > Wr - iL - 6 * s ? [G.B.bio.name, '自动指挥中', '你可以随时接管。'] : [full]; if (G.best > 5) t2.push('最高纪录：第 ' + G.best + ' 波');
         let w = PX.measure(t1) * sc; for (const l of t2) w = Math.max(w, tw(l)); w += pad * 4; const h = PX.LINE * sc + LH * t2.length + pad * 2 + 2 * s, yy = Hb - h - 12 * s - zb;
         c.globalAlpha = a; plate(Math.round(W / 2 - w / 2), yy, w, h); PX.text(c, t1, W / 2, yy + pad, sc, '#ffd9a8', { align: 'c' }); t2.forEach((l, k) => text(l, W / 2, yy + pad + PX.LINE * sc + s + k * LH, k === 0 && t2.length > 1 ? COLR.tx : COLR.dim, { align: 'c' })); c.globalAlpha = 1;
       }

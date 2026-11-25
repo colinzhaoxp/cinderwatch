@@ -127,8 +127,14 @@ const PX = (() => {
   for (const ch in SRC) glyphs.set(ch, parse(SRC[ch]));
   const UNKNOWN = parse(UNKNOWN_SRC);
 
+  const chineseFont = '"PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+  const hasChinese = /[\u3000-\u9fff\uff00-\uffef]/;
+  const metrics = document.createElement('canvas').getContext('2d');
+  metrics.font = '90px ' + chineseFont;
+
   function measure(str) {
     str = String(str);
+    if (hasChinese.test(str)) return metrics.measureText(str).width / 10;
     let w = 0, n = 0;
     for (const ch of str) { w += (glyphs.get(ch) || UNKNOWN).w + GAP; n++; }
     return n ? w - GAP : 0;
@@ -184,6 +190,23 @@ const PX = (() => {
     if (!str.length) return 0;
     s = Math.max(1, Math.round(s || 1));
     const op = opts || NOOPT;
+    if (hasChinese.test(str)) {
+      ctx.save();
+      ctx.font = (9 * s) + 'px ' + chineseFont;
+      ctx.textAlign = op.align === 'c' ? 'center' : op.align === 'r' ? 'right' : 'left';
+      ctx.textBaseline = 'middle';
+      ctx.globalAlpha *= op.alpha === undefined ? 1 : op.alpha;
+      const centerY = y + LINE * s / 2;
+      if (op.outline) {
+        ctx.strokeStyle = op.outline;
+        ctx.lineWidth = s;
+        ctx.strokeText(str, x, centerY);
+      }
+      ctx.fillStyle = color || '#fff';
+      ctx.fillText(str, x, centerY);
+      ctx.restore();
+      return measure(str) * s;
+    }
     const e = run(str, color || '#ffffff', op.shadow || '', op.outline || '');
     const wpx = e.w * s;
     let dx = x;

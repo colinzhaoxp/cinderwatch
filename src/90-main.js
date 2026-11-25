@@ -134,7 +134,7 @@ function frame(now) {
   _acc += raw; _frames++;
   if (_acc >= 2) {
     const ms = _acc / _frames * 1000;
-    R.fpsText = (1000 / ms).toFixed(0) + ' fps  ' + R.iw + 'x' + R.ih + '  calls ' + R.renderer.info.render.calls + '  mons ' + G.mons.length;
+    R.fpsText = (1000 / ms).toFixed(0) + ' 帧/秒  ' + R.iw + 'x' + R.ih + '  绘制次数 ' + R.renderer.info.render.calls + '  怪物 ' + G.mons.length;
     if (ms > 22.5) { _slow++; _fast = 0; } else { _slow = 0; _fast = ms < 18.6 ? _fast + 1 : 0; }
     _hold -= _acc;
     if (!HASH.noscale) {
@@ -158,7 +158,7 @@ function boot() {
   }, 14, { rad: .1 });
   G.boardSeed = HASH.seed ? +HASH.seed : 1 + Math.floor(Math.random() * 9000);
   G.boardIndex = +(HASH.board || 0); G.level = +(HASH.level || 0);
-  { const bi = HASH.biome === undefined ? -1 : BIOMES.findIndex(b => b.key === HASH.biome || b.name.toLowerCase() === String(HASH.biome).toLowerCase()); BIOME.start = (bi >= 0 ? bi : HASH.biome !== undefined && isFinite(+HASH.biome) ? +HASH.biome : HASH.seed ? 0 : Math.floor(Math.random() * BIOMES.length)) - G.boardIndex; }
+  { const bi = HASH.biome === undefined ? -1 : BIOMES.findIndex(b => b.key === HASH.biome || b.alias.toLowerCase() === String(HASH.biome).toLowerCase() || b.name.toLowerCase() === String(HASH.biome).toLowerCase()); BIOME.start = (bi >= 0 ? bi : HASH.biome !== undefined && isFinite(+HASH.biome) ? +HASH.biome : HASH.seed ? 0 : Math.floor(Math.random() * BIOMES.length)) - G.boardIndex; }
   const B = G.B = buildBoard(G.boardSeed++, G.boardIndex++);
   R.scene.add(B.group); activateBoard(B, true);
   beginBattle(true);
@@ -182,6 +182,6 @@ function boot() {
 }
 function start() {
   try { boot(); }
-  catch (e) { const ld = document.getElementById('load'); if (ld) ld.innerHTML = 'Cinderwatch could not start.<br><small>It needs a browser with WebGL 2 turned on.</small>'; throw e; }
+  catch (e) { const ld = document.getElementById('load'); if (ld) ld.innerHTML = '余烬守望启动失败。<br><small>请在浏览器中启用 WebGL 2 后重试。</small>'; throw e; }
 }
 if (HASH.manual || HASH.ff) start(); else requestAnimationFrame(() => setTimeout(start, 0));
